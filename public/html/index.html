@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<style>
+    .im {
+        align-self: center;
+    }
+</style>
+<body onload="checkToken()">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Notflix</a>
+        </div>
+        <ul class="nav navbar-nav" id="navId">
+            <li class="active"><a href="./index.html">Filmaanbod</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="./over.html">Over</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Notflix website</h1>
+            <p>Welkom op de website, hier vindt u een overzicht van de films.</p>
+        </div>
+    </div>
+
+</section>
+
+
+<div class="row" id="containerFilm">
+
+
+
+
+</div>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+    </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/Script.js"></script>
+
+</body>
+
+<script>
+
+
+$(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/movies",
+            success: function (response) {
+                //alert(response);
+                console.log(response);
+                var myStringArray = response;
+                var arrayLength = myStringArray.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    var movieObject = myStringArray[i];
+
+                    generateMovieBlob(movieObject.beschrijving, movieObject.titel, movieObject.ttnummer);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error');
+                console.log(errorThrown);
+            },
+            dataType: "json"
+        });
+    });
+
+</script>
+
+
+</html>
